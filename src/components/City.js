@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 class City extends React.Component {
 
     render() {
-        let city = this.props.city;
-        if(city) {
+        let city = this.props.cityData;
+        if(city.name) {
             return (
                 <div className="container">
                     <h1> {city.name} </h1>
@@ -26,7 +26,7 @@ class City extends React.Component {
 
 const mapStateToProps = (state) => {
     return ({
-        city: state.openWeatherReducer.cityData
+        cityData: state.openWeatherReducer.cityData
     });
 }
 

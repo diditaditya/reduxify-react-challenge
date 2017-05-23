@@ -1,8 +1,14 @@
 import Axios from 'axios';
 
-import { SET_OWFC5DAYS, SET_OWFC16DAYS, SET_CITY } from "./constants";
+import { SET_OWFC5DAYS, SET_OWFC16DAYS, SET_CITY, SET_SEARCH_CITY } from "./constants";
 
 const openWeatherAction = {
+    setSearchCity(city) {
+        return {
+            type: SET_SEARCH_CITY,
+            payload: city
+        }
+    },
     setCity(cityData) {
         return {
             type: SET_CITY,
@@ -23,12 +29,9 @@ const openWeatherAction = {
     }
 }
 
-export const fetchOW5 = () => {
-    console.log('fetchin..');
-    let city = "Jakarta,ID";
+export const fetchOW5 = (city) => {
     let url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&mode=json&units=metric&APPID=8b8926b398fdba5ce76701d649c783f8`;
     return dispatch => {
-        console.log('just before returnin Axioz')
         return Axios.get(url)
         .then((response) => {
             dispatch(openWeatherAction.setOWFC5DaysData(response.data));
@@ -40,8 +43,7 @@ export const fetchOW5 = () => {
     }
 }
 
-export const fetchOW16 = () => {
-    let city = "Jakarta,ID";
+export const fetchOW16 = (city) => {
     let url = `http://api.openweathermap.org/data/2.5/forecast/daily?q=${city}&mode=json&units=metric&cnt=16&APPID=8b8926b398fdba5ce76701d649c783f8`
     return dispatch => {
         return Axios.get(url)

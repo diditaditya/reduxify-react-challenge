@@ -1,7 +1,8 @@
-import { SET_OWFC5DAYS, SET_OWFC16DAYS, SET_CITY } from "./constants";
+import { SET_OWFC5DAYS, SET_OWFC16DAYS, SET_CITY, SET_SEARCH_CITY } from "./constants";
 
 
 const initialState = {
+    city: 'Jakarta',
     cityData: '',
     owData5Days: '',
     owData16Days: ''
@@ -11,27 +12,28 @@ const initialState = {
 const OpenWeatherReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_OWFC5DAYS:
-            state = {
+            return {
                 ...state,
                 owData5Days: action.payload
             };
-            break;
         case SET_OWFC16DAYS:
-            state = {
+            return {
                 ...state,
                 owData16Days: action.payload
             }
-            break;
         case SET_CITY:
-            state = {
+            return {
                 ...state,
                 cityData: action.payload
             }
-            break;
+        case SET_SEARCH_CITY:
+            return {
+                ...state,
+                city: action.payload
+            }
         default:
             return state;
     }
-    return state;
 } ;
 
 

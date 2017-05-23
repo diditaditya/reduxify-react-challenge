@@ -54,13 +54,14 @@ class FC16Days extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchOW16();
+        this.props.fetchOW16(this.props.city);
     }
 
 }
 
 const mapStateToProps = (state) => {
     return ({
+        city: state.openWeatherReducer.city,
         weathers: state.openWeatherReducer.owData16Days
     });
 }
@@ -69,7 +70,7 @@ const mapDispatchToProps = (dispatch) => {
     return ({
         fillDailyForecast: (forecast) => dispatch(openWeatherAction.setOWFC16DaysData(forecast)),
         setCity: (city) => dispatch(openWeatherAction.setCity(city)),
-        fetchOW16: () => dispatch(fetchOW16())
+        fetchOW16: (city) => dispatch(fetchOW16(city))
     });
 }
 

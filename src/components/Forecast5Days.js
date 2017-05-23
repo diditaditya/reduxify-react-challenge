@@ -53,13 +53,14 @@ class FC5Days extends React.Component {
     }
 
     componentDidMount() {
-        this.props.fetchOW5();
+        this.props.fetchOW5(this.props.city);
     }
 
 }
 
 const mapStateToProps = (state) => {
     return ({
+        city: state.openWeatherReducer.city,
         weathers: state.openWeatherReducer.owData5Days
     });
 };
@@ -68,7 +69,7 @@ const mapDispatchToProps = (dispatch) => {
     return ({
         fill5DaysForecast: (forecast) => dispatch(openWeatherAction.setOWFC5DaysData(forecast)),
         setCity: (city) => dispatch(openWeatherAction.setCity(city)),
-        fetchOW5: () => dispatch(fetchOW5())
+        fetchOW5: (city) => dispatch(fetchOW5(city))
     });
 };
 
