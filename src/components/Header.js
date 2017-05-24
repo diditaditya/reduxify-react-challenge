@@ -12,16 +12,21 @@ class Header extends React.Component {
         super(props);
         this.inputStyle = {
             borderRadius: '5px'
-        },
+        };
         this.searchFormStyle = {
             float: 'right',
-            marginTop: '25px'
-        },
+            marginTop: '25px',
+            marginRight: '50px'
+        };
         this.brandTextStyle = {
             fontSize: '3em',
             fontWeight: 'bold',
             color: 'skyBlue'
-        },
+        };
+        this.openWeatherLogoStyle = {
+            width: '25px',
+            height: 'auto'
+        };
         this.state = {
             search: ''
         }
@@ -35,8 +40,8 @@ class Header extends React.Component {
 
     handleSubmit() {
         let city = this.state.search;
-        alert(city);
         if(city.length > 0) {
+            this.props.search(city);
             this.props.setCity(city);
             this.props.fetchOW5(city);
             this.props.fetchOW16(city);
@@ -57,8 +62,13 @@ class Header extends React.Component {
                         </div>
 
                         <div style={this.searchFormStyle}>
-                            <input value={this.state.search} onChange={(e) => this.handleChange(e.target.value)} style={this.inputStyle} type="text" placeholder="City name"/>
-                            <button onClick={() => this.handleSubmit()}  className="btn btn-default">Search</button>
+                            <div className="row">
+                                <input value={this.state.search} onChange={(e) => this.handleChange(e.target.value)} style={this.inputStyle} type="text" placeholder="City name"/>
+                                <button onClick={() => this.handleSubmit()}  className="btn btn-default">Search</button>
+                            </div>
+                            <div className="row">
+                                <p>powered by <b>OpenWeatherMap</b> <img src={openWeatherlogo} style={this.openWeatherLogoStyle} alt="open weather logo"/></p>
+                            </div>
                         </div>
 
 

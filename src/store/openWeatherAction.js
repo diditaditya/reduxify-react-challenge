@@ -1,6 +1,6 @@
 import Axios from 'axios';
 
-import { SET_OWFC5DAYS, SET_OWFC16DAYS, SET_CITY, SET_SEARCH_CITY } from "./constants";
+import { SET_OWFC5DAYS, SET_OWFC16DAYS, SET_CITY, SET_SEARCH_CITY, SET_FETCH_STATUS } from "./constants";
 
 const openWeatherAction = {
     setSearchCity(city) {
@@ -29,13 +29,25 @@ const openWeatherAction = {
     }
 }
 
+export const fetchStatus = (response) => {
+    return {
+        type: SET_FETCH_STATUS,
+        payload: response.cod
+    }
+}
+
 export const fetchOW5 = (city) => {
     let url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&mode=json&units=metric&APPID=8b8926b398fdba5ce76701d649c783f8`;
     return dispatch => {
         return Axios.get(url)
         .then((response) => {
-            dispatch(openWeatherAction.setOWFC5DaysData(response.data));
-            dispatch(openWeatherAction.setCity(response.data.city));
+            if(response.data.cod === "200") {
+                dispatch(openWeatherAction.setOWFC5DaysData(response.data));
+                dispatch(openWeatherAction.setCity(response.data.city));
+            } else {
+                dispatch(openWeatherAction.setOWFC5DaysData(response.data));
+                dispatch(openWeatherAction.setCity(response.data));
+            }
         })
         .catch((err) => {
             console.log(err);

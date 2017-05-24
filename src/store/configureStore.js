@@ -8,7 +8,7 @@ const reducers = combineReducers({
     openWeatherReducer
 });
 
-const middlewares = applyMiddleware(logger, thunk);
+const middlewares = applyMiddleware(thunk);
 
 const store = createStore(reducers, middlewares);
 
